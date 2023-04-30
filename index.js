@@ -1,7 +1,5 @@
 const bcrypt = require('bcrypt');
-const sqlite = require('sqlite3');
 const fs = require("fs");
-
 class Block{
 
     constructor(blockid, previousHash, data){
@@ -29,16 +27,76 @@ class BlockChain{
         this.chain.push(block); 
        
     }
+    getBlockData(hash){
+        for(var i = 0; i < this.chain.length; i++){
+            if(this.chain[i].blockhash == hash){
+                return this.chain[i].data;
+            }
+        }
+    }
+    getBlockHash(data){
+        for(var i = 0; i < this.chain.length; i++){
+            if(this.chain[i].data == data){
+                return this.chain[i].blockhash;
+            }
+        }
+    }
 }
 
-const testChain = new BlockChain();
 
-testChain.addBlock("testdjslfjaskdfj;")
-testChain.addBlock("343291840;")
 
-fs.writeFile("block.json", JSON.stringify(testChain), 'utf8', function (err) {
-    if (err) {
-        console.log("An error occured while writing JSON Object to File.");
-        return console.log(err);
-    }
+
+// fs.writeFile("block.json", JSON.stringify(testChain), 'utf8', function (err) {
+//     if (err) {
+//         console.log("An error occured while writing JSON Object to File.");
+//         return console.log(err);
+//     }
+// })
+const express = require('express')
+
+const app = express()
+const router = express.Router();
+app.set("view engine", "ejs");
+app.set("views", "./views");
+
+const https = require('https')
+var http = require('http').Server(app);
+
+const { response } = require('express');
+
+
+const notes = new BlockChain();
+
+
+app.use(express.json({
+  limit: '50mb'
+}));
+app.use(express.urlencoded({
+  limit: '50mb',
+  extended: true
+}));
+
+
+
+
+
+app.get('/', function (req, res) {
+res.render('index');
 })
+
+app.post('/newNote', function(req, res){
+    notes.addBlock(req.body.note);
+    res.send("Share your note with this link: localhost:3000/viewnote?hash="+notes.getBlockHash(req.body.note))
+    res.end();
+})
+app.post('/findNote', function(req, res){
+    res.redirect("/viewnote?hash="+req.body.hash);
+})
+app.get('/viewnote', function(req, res){
+    res.send(notes.getBlockData(req.query.hash));
+
+})
+
+
+
+app.listen(3000, () => console.log('Server is live on port 3000!'))
