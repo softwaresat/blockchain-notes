@@ -1,0 +1,32 @@
+body{
+    background-color: #004766;
+}
+h1{
+    text-align: center;
+    color: white;
+}
+form{
+    background-color: black;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 10px;
+    width: 50%;
+}
+form button{
+    background: blue;
+    border-radius: 200px;
+    margin: 10px;
+    padding: 5px;
+    border-color: transparent;
+    color: white;
+}
+form textarea{
+    margin: 10px;
+}
+#newNote{
+
+}

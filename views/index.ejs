@@ -3,19 +3,22 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Main Page</title>
-    <script>
-       
-    </script>
+    <title>Blockchain Notes</title>
+    <link href="styles/index.css" rel="stylesheet">
+
 </head>
   <body>
-    <form method="POST" action="newNote">
-        <textarea rows="5" cols="80" id="note" name="note">
-        </textarea> 
+    <h1>Blockchain Notes Demo</h1>
+    <form method="POST" action="newNote" id="newNote">
+      <h2>Add new note</h2>
+        <textarea rows="5" cols="80" id="note" name="note"></textarea> 
+        <br>
         <button type="submit">Add</button>
     </form>
-    <form method="POST" action="findNote">
+    <form method="POST" action="findNote" id="findNote">
+      <h2>Find Note</h2>
         <input type="text" placeholder="Hash" id="hash" name="hash"></input>
+        <br>
         <button type="submit">Find Note</button>
     </form>
 </body>
