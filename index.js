@@ -87,7 +87,6 @@ const express = require('express')
 
 const app = express()
 const router = express.Router();
-app.set("view engine", "ejs");
 app.set("views", "./views");
 
 const https = require('https')
@@ -141,4 +140,4 @@ app.get('/viewnote', function(req, res){
 
 
 
-app.listen(3000, () => console.log('Server is live on port 3000!'))
+app.listen(80, () => console.log('Server is live on port 80!'))
