@@ -140,4 +140,4 @@ app.get('/viewnote', function(req, res){
 
 
 
-app.listen(80, () => console.log('Server is live on port 80!'))
+app.listen(process.env.PORT || 3000, () => console.log('Server is live on port 80!'))
