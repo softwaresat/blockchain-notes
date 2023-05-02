@@ -105,6 +105,7 @@ db.all("SELECT * FROM notes", async (err, results) => {
   
 });
 function reset(){
+    console.log("Resetting...")
     notes = new BlockChain();
 db.all("SELECT * FROM notes", async (err, results) => {
     if(results){
@@ -117,6 +118,7 @@ db.all("SELECT * FROM notes", async (err, results) => {
 }
 app.use(express.static('views'))
 
+app.set('view engine', 'ejs');
 
 app.use(express.json({
   limit: '50mb'
