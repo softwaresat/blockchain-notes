@@ -104,6 +104,17 @@ db.all("SELECT * FROM notes", async (err, results) => {
     }
   
 });
+function reset(){
+    notes = new BlockChain();
+db.all("SELECT * FROM notes", async (err, results) => {
+    if(results){
+        results.forEach(block => {
+            notes.restoreBlock(block.blockid, block.timestamp, block.blockhash, block.prevHash, block.data);
+           });
+    }
+  
+});
+}
 app.use(express.static('views'))
 
 
@@ -120,7 +131,7 @@ app.use(express.urlencoded({
 
 app.get('/', function (req, res) {
     const tampered = notes.verifyIntegrity();
-    tampered ? console.log("Blockchain has been tampered with!") : console.log("Block chain has been validated!");
+    tampered ? reset() : console.log("Block chain has been validated!");
     console.log(notes);
 res.render('index');
 })
@@ -140,4 +151,4 @@ app.get('/viewnote', function(req, res){
 
 
 
-app.listen(process.env.PORT || 3000, () => console.log('Server is live on port 80!'))
+app.listen(process.env.PORT || 3000, () => console.log('Server is live on port 3000!'))
